@@ -34,3 +34,8 @@ public class Comment {
 	int age = 27; //제니 나이 변수
 	}
 }
+
+
+class AddData {
+	
+}
