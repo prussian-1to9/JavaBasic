@@ -1,4 +1,4 @@
-package ex;
+package day05.ex;
 
 /*
 	1~10까지의 합을 구해

@@ -1,4 +1,4 @@
-package day04.Ex;
+package day04.ex;
 
 /*
 1~25의 숫자 3개를 랜덤하게 발생시켜

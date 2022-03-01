@@ -1,4 +1,4 @@
-package day04.Ex;
+package day04.ex;
 
 /*
 	문제2.

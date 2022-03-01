@@ -1,4 +1,4 @@
-package day04.Ex;
+package day04.ex;
 
 /*
 	게시물을 게시판에 출력할 때, 

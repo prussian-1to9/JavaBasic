@@ -1,4 +1,4 @@
-package day04.Ex;
+package day04.ex;
 
 /*
 	3자리 숫자(100~999)를 입력받아
