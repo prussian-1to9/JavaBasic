@@ -23,17 +23,21 @@ public class Ex13 {
 		System.out.println("나머지 정수를 입력하세요.");
 		int b=sc.nextInt();
 		
+		// 두 수중; 작은 수, 큰수 찾기
+		
+		;
+		
 		// 반복문 1:최대 공약수
-		for (int max=(a*b); ; max--) {
-			if ((a/max>=1)&(b/max>=1)&(a%max==0)&(b%max==0)) {
-				System.out.println(a+"와 "+b+"의 최대 공약수 : "+max);
+		for (int m=(a<b)?a:b; ; m--) {
+			if ((a/m>=1)&(b/m>=1)&(a%m==0)&(b%m==0)) {
+				System.out.println(a+"와 "+b+"의 최대 공약수 : "+m);
 				break;
 			}
 		}	
 		// 반복문 2:최소 공배수
-		for (int min=0; ; min++) {
-			if ((min/a>=1)&(min/b>=1)&(min%a==0)&(min%b==0)) {
-				System.out.println(a+"와 "+b+"의 최소 공배수 : "+min);
+		for (int M=(a>b)?a:b; ; M++) {
+			if ((M/a>=1)&(M/b>=1)&(M%a==0)&(M%b==0)) {
+				System.out.println(a+"와 "+b+"의 최소 공배수 : "+M);
 				break;
 			}
 		}

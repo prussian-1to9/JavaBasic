@@ -1,6 +1,6 @@
 package day05;
 
-public class Test11 {
+public class Continue {
 	public static void main(String[] args) {
 		// 구구단 5단을 출력하지만, 곱이 5인 경우는 제외하시오.
 		

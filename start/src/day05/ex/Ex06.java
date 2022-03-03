@@ -35,9 +35,9 @@ public class Ex06 {
 		//반복문 만들기
 		for (int i=0; user!=com; i++) {
 			if(i==0) {
-				System.out.println("첫도전! 맘 편히 정답을 입력해보세요!");
+				System.out.println("첫 도전! 맘 편히 아무 숫자나 입력하세요!");
 			}else {
-				System.out.println((i+1)+"번째 도전! 정답을 입력해주세요!");
+				System.out.println((i+1)+"번째 도전! 정답을 입력하세요!");
 			}
 			// 정답 입력 및 출력
 			user=sc.nextInt();		// 입력

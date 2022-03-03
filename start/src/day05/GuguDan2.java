@@ -1,6 +1,6 @@
 package day05;
 
-public class Test12 {
+public class GuguDan2 {
 
 	public static void main(String[] args) {
 		// 구구단을 출력하시오.
@@ -13,7 +13,7 @@ public class Test12 {
 			}
 			System.out.println();
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 				}catch(Exception e){
 			}
 		}

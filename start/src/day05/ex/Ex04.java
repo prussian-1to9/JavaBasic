@@ -23,9 +23,9 @@ public class Ex04 {
 		
 		// 사용자 코드입력
 		System.out.println("사용자 코드를 입력하세요.\n"
-				+"(일반 가정 1, 산업체 2, 교육기관 3, 상업 건물 4)");
+				+"(일반 가정 1, 산업체 2, 교육기관 3, 상업 건물 4, 종료 0)");
 		int code=sc.nextInt();
-		
+
 		// 사용량 입력
 		System.out.println("한 달 사용량 사용량을 입력하시오.");
 		int usage=sc.nextInt();

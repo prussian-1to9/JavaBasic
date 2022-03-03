@@ -1,7 +1,5 @@
 package day05.ex;
 
-import javax.swing.JOptionPane;
-
 /*
 	문제 8. 숫자형식의 다섯자리 정수형태 문자열을 입력받아서
 		각자리 수의 합을 구하는 프로그램을 작성하세요.
@@ -22,7 +20,7 @@ public class Ex08 {
 		
 		// 각 자리의 수 합하는 조건문 만들기
 		for(int i=0; i<length; i++) {
-			int letter=(num.codePointAt(i)-48);
+			int letter=(num.charAt(i)-'0');
 			sum+=letter;
 		}
 		

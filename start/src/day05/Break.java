@@ -1,6 +1,6 @@
 package day05;
 
-public class Test09 {
+public class Break {
 	/*
 		for 명령문에 증감식, 조건식, 카운터 변수 초기화 부분은
 		모두 기술하지 않아도 된다. (;은 써줘야 함!!)

@@ -21,6 +21,14 @@ public class Ex07 {
 		int sum=0;
 		int letter=0;
 		
+		// 아 헐 이렇게 할 수도 있음!!
+		int tmp=num;
+		int um=0;
+		// 반복문 생성
+		for (int e=0; e<5; ++e) {
+			um+=(tmp%10);
+			tmp/=10;
+		}
 		// 반복문 생성
 		for (int i=0; i<5; i++) {
 			if (i==0) {
@@ -40,9 +48,9 @@ public class Ex07 {
 			}
 			sum+=letter;
 		}
-		
+
 		// 결과값 출력
 		
-		System.out.println("각 자리 수의 합 : "+sum);
+		System.out.println("각 자리 수의 합 : "+um);
 	}
 }

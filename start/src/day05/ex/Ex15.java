@@ -1,55 +1,52 @@
 package day05.ex;
 
 /*
-	문제15.
-	구구단을 다음 형식으로 출력하시오
+문제 15 ]
+	구구단을 다음 형식으로 출력하세요.
 	
-	2x1=2	4x1=4	6x1=6	8x1=8
-	2x2=4	4x2=8	6x2=12	8x2=16
-	...		...		...		...
-	2x2=9	4x9=36	6x9=54	8x9=72
+	2 x 1 = 2		3 x 1 = 3		4 x 1 = 4 		5 x 1 = 5
+	2 x 2 = 4		3 x 2 = 6		4 x 2 = 8 		5 x 2 = 10
+	...
+	2 x 9 = 18		3 x 9 = 27		4 x 9 = 36 		5 x 9 = 45
 	
-	3x1=3	5x1=5	7x1=7	9x1=9
-	3x2=6	5x2=10	7x2=14	9x2=18
-	...		...		...		...
-	3x9=27	5x9=45	7x9=63	9x9=81
- */
+	6 x 1 = 6		7 x 1 = 7		8 x 1 = 8 		9 x 1 = 9
+	6 x 2 = 12		7 x 2 = 14		8 x 2 = 16 		9 x 2 = 18
+	...
+	6 x 9 = 54		7 x 9 = 63		8 x 9 = 72 		9 x 9 = 81
+	
+	
+*/
 public class Ex15 {
 	public static void main(String[] args) {
-		// 배수에 대한 변수 만들기
-		int baesu=0;
+		// 대수, 결과값 변수 생성
+		int daesu=1;
+		int result=0;
 		
-		// 반복문-짝수 구구단 만들기
-		for (int even=0; baesu<9; even+=2) {
-			// i+2가 8을 넘었을 경우 초기화.
-			if (even>6) {
-				even=0;
-				++baesu;
-				try {Thread.sleep(1000);}catch(Exception e) {}
+		for(int even=0; daesu<10; even++) {
+			result=(even+2)*daesu;
+			System.out.print((even+2)+"X"+daesu+"="+result+"\t");
+			if (even>=3) {
+				++daesu;
+				even=-1;
 				System.out.print("\n");
+				// 뜸들이기(?)
+				try {Thread.sleep(1000);}catch(Exception e) {}
 			}
-			// 2x10이 출력되지 않기 위해 break
-			if (baesu>=9) {break;}
-			System.out.print((even+2)+"x"+(baesu+1)+"="+((even+2)*(baesu+1))+"\t");
 		}
+		// 대수 초기화
+		daesu=1;
+		System.out.println();
 		
-		System.out.println("\n");
-		
-		// 배수 변수 초기화
-		baesu=0;
-		
-		// 반복문-홀수 구구단 만들기 (복붙. even->odd로 바꿔주고 2->3로 바꿔주기)
-		for (int odd=0; baesu<9; odd+=2) {
-			// i+2가 8을 넘었을 경우 초기화.
-			if (odd>6) {
-				odd=0;
-				++baesu;
-				try {Thread.sleep(1000);}catch(Exception e) {}
+		for(int even=0; daesu<10; even++) {
+			result=(even+2)*daesu;
+			System.out.print((even+6)+"X"+daesu+"="+result+"\t");
+			if (even>=3) {
+				++daesu;
+				even=-1;
 				System.out.print("\n");
+				// 뜸들이기(?)
+				try {Thread.sleep(1000);}catch(Exception e) {}
 			}
-			// 2x10이 출력되지 않기 위해 break
-			if (baesu>=9) {break;}
-			System.out.print(((odd)+3)+"x"+(baesu+1)+"="+((odd+3)*(baesu+1))+"\t");
 		}
 	}
 }

@@ -22,8 +22,10 @@ public class Ex03 {
 		
 		// 반복문 생성
 		for(int i=0; i<length; i++) {
+			// 추출
 			char letter=str.charAt(i);
-			System.out.println(letter);
+			// 출력
+			System.out.print((i+1)+"번째 문자 : ["+letter+"]\n");
 		}
 	}
 

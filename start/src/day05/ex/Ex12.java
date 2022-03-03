@@ -36,7 +36,7 @@ public class Ex12 {
 		e%=10;
 		
 		// 판별 조건문 생성
-		if ((a==e)&&(b==d)) {
+		if ((a==e)&(b==d)) {
 			System.out.print("회문수 입니다.");
 		}else {
 			System.out.print("회문수가 아닙니다.");

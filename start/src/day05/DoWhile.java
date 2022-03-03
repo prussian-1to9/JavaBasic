@@ -1,6 +1,6 @@
 package day05;
 
-public class Test10 {
+public class DoWhile {
 
 	public static void main(String[] args) {
 		int no=10;
