@@ -33,19 +33,26 @@ public class Ex01 {
 //--------------------------------------------------------------
 		// extra 문제 : 3~100 사이의 정수 중, 소수 출력하기
 		// (모르겠음!!)
-		System.out.print("3~100 사이의 소수는 ");
-		for (int i=3; i<301; i++) {
-			// sosu 재정의를 위한 반복문
-			for (int n=0; n<i; n++) {
-				count=0;
-				if (i/(n+1)>=1&i%n==0) {
-					count++;
+		System.out.println("\n3~100사이의 소수를 출력합니다.");
+		
+		// 3~100 정수 만드는 조건문
+		for (int i=3; i<101; i++) {
+			// 카운트 변수 생성 및 초기화
+			int c=0;
+			
+			// 판별
+			for (int j=1; j<i+1; j++) {
+				
+				if ((i/j>=1)&(i%j==0)) {
+					c++;
 				}
-				if (sosu) {
-					System.out.print(num+" ");					
 				}
+			
+			// 판별 변수 생성
+			boolean bool=(c==2);	
+			if (bool) {
+				System.out.print(i+" ");
 			}
-			System.out.print("입니다.");
 		}
 	}
 }

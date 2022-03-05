@@ -15,11 +15,21 @@ public class Ex01 {
 		// 배열 변수 생성
 		char[] ch=new char[100];
 		
+		// 출현 횟수 배열변수 만들기
+		int[] show= new int[10];
+		
 		// 랜덤 문자 출력
-		for (int i=0; i<100; i++) {
+		for (int i=0; i<ch.length; i++) {
+			int ran=(int)(Math.random()*(9-0+1)+0);
+			ch[i]=(char)('A'+ran);
 			
+			// 카운트
+			show[ran]++;
 		}
 		
-		
+		// 결과출력
+		for (int i=0; i<show.length; i++) {
+			System.out.println((char)('A'+i)+" : ["+show[i]+"]");
+		}
 	}
 }

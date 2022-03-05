@@ -72,17 +72,18 @@ public class Ex03 {
 		System.out.println("\n");
 		
 		// 3. (얘가 문제임^^)
-
 		for (int i=0; i<5; ) {
-			for(int j=0; i<4; j++) {
+			for (int j=0; i<5; j++) {
 				if (j>=5) {
-					System.out.println();
+					j=-1;
 					i++;
-					j-=5;
+					System.out.println();
+				}else {
+					System.out.print(i+j+1+" ");
 				}
-				System.out.print((j+1+i)+" ");
 			}
 		}
+
 		System.out.println("\n");
 
 		// 4.
@@ -103,6 +104,37 @@ public class Ex03 {
 		}
 		System.out.println("\n");
 		
-		// .5
+		// 5. --> 배열 쓰면 안되나?
+		loop5:
+		for (int i=0; i<5; i++) {
+			for (int j=0; i<5; j++) {
+				if (j>i) {
+					System.out.println();
+					j=0;
+					continue loop5;
+				}
+				System.out.print(j+1+" ");
+			}
+		}
+		System.out.println("\n");
+		
+		// 6.
+		int num=1;
+		loop6:
+		for(int i=0; i<5; i++) {
+			for(int j=0; i<5; j++) {
+				if(j>i) {
+					System.out.println();
+					j=0;
+					continue loop6;
+				}
+				if (num<10) {
+					System.out.print(" "+num+" ");
+				}else {
+					System.out.print(num+" ");
+				}
+				num++;
+			}
+		}
 	}
 }
