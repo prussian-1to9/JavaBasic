@@ -9,6 +9,6 @@ public class WrongAge extends Exception {
 
 	@Override
 	public String toString() {
-		return getClass().getName()+"\t\t음수의 나이가 입력되었습니다.";
+		return getClass().getName()+"음수의 나이가 입력되었습니다.";
 	}
 }

@@ -21,37 +21,45 @@ public class Ex01 {
 	public Ex01() {
 		try {
 			getNum();
+			getSum(num);
 		} catch(Exception e) {
-			System.out.println("String 배열을 숫자로 변환할 수 없습니다.");
-		}
-
-		getSum(num);
-
-		try {
-			getAve();
-		} catch (Exception e) {
-			System.out.println("숫자를 0으로 나눌 수 없습니다.");
+			e.printStackTrace();
 		}
 		toPrint();
 	}
 	
-	// 문자열 -> 정수 (예외 : 2)
-	public void getNum() {
-		for(int i=0; i<arr.length; i++) {
+	// 문자열 -> 정수
+	public void getNum() throws Exception {
+		try {
+			for(int i=0; i<arr.length; i++) {
 			num[i]=Integer.parseInt(arr[i]);
+			}
+		} catch (Exception e) {
+			System.out.println("숫자로 변환이 불가능합니다.");
 		}
+		
+		if (num.length!=arr.length) {
+			throw new WrongIndex();
+		}		
 	}
 	
 	// 합 구하기
-	public void getSum(int[] num) {
+	public void getSum(int[] num) throws Exception {
 		for (int i=0; i<num.length; i++) {
 			sum+=num[i];
 		}
+		if (num.length!=arr.length) {
+			throw new WrongIndex();
+		}else {getAve();}
 	}
 	
-	// 평균 구하기 (예외 : 3)
-	public void getAve() {
+	// 평균 구하기
+	public void getAve() throws Exception {
 		ave=sum/arr.length;
+		
+		if (arr.length==0) {
+			throw new DividedZero();
+		}
 	}
 	
 	// 출력 함수
