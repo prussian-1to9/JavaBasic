@@ -26,6 +26,7 @@ public class Matcher02 {
 			// 출력도 같이~
 			System.out.println("전화번호 : "+hp);
 		}
+		System.out.println(mat.find());
 	}
 
 	public static void main(String[] args) {

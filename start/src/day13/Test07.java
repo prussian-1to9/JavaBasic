@@ -7,17 +7,20 @@ public class Test07 {
 		
 		int idx=5;
 		int no=6;
-		int result=0;
+		int result=0;	// 초기화
 		
 		try {
 			result=arr[idx]/no;
 			
 		}catch(ArithmeticException e) {
 			System.out.println(e);	// 예외의 정보만 출력
+			
 		}catch(IndexOutOfBoundsException e) {
 			e.printStackTrace();	// 예외의 위치, 클래스도 추적
+			
 			System.out.println("***");
 			System.out.println(e);
+			
 		}catch(Exception e) {
 			System.out.println("나머지 예외 발생");
 		}

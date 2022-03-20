@@ -29,7 +29,12 @@ public class Ex01 {
 		
 		// 결과출력
 		for (int i=0; i<show.length; i++) {
-			System.out.println((char)('A'+i)+" : ["+show[i]+"]");
+			System.out.print((char)('A'+i)+" ["+show[i]+"]\t: ");
+			
+			for (int j=0; j<show[i]; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
 		}
 	}
 }
