@@ -24,7 +24,7 @@ public class Ex02 {
 	
 	// 랜덤 롤링
 	public void rollRan() {
-		for(int i=0; i<10; i++) {
+		for(int i=0; num.size()<10; i++) {
 			num.add((int)(Math.random()*98+1));
 		}
 	}

@@ -18,7 +18,17 @@ public class Student implements Comparable {
 	private double ave;
 	
 	public Student() {}
-
+	public Student(String name, int ban, int no, int java, int db, int web, int spring) {
+		this.name=name;
+		this.ban=ban;
+		this.no=no;
+		this.java=java;
+		this.db=db;
+		this.web=web;
+		this.spring=spring;
+		setAve();
+	}
+	
 	public String getName() {
 		return name;
 	}

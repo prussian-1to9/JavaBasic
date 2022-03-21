@@ -1,0 +1,6 @@
+#\uC801\uB2F9\uD788 \uBA54\uC138\uC9C0~
+#Mon Mar 21 15:24:12 KST 2022
+age=23
+tel=010-0323-0825
+name=\uD669\uC778\uC900
+addr=GWANGYA
