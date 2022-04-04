@@ -35,7 +35,7 @@ public class Ex01 {
 	// ID 조건 판별
 	public void judgeId() {
 		// 조건 만들기
-		Pattern form=Pattern.compile("[A-Z]{1}[A-Za-z0-9]{4,}");
+		Pattern form=Pattern.compile("[A-Z][A-Za-z0-9]{4,}");
 		
 		// 판별~
 		Matcher mat=form.matcher(id);
@@ -65,7 +65,7 @@ public class Ex01 {
 		Matcher mat3=len.matcher(idDetail[1]);
 		if (!mat1.matches()) {
 			System.out.println("첫 글자가 알파벳 대문자여야 합니다.");
-		}else if (!mat3.find()) {
+		}else if (!mat3.matches()) {
 			System.out.println("ID는 5글자 이상이여야 합니다.");
 		}else if (!mat2.matches()) {
 			System.out.println("ID는 영문과 숫자만 사용 가능합니다.");

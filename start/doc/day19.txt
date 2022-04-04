@@ -227,38 +227,36 @@ class ClientThread{
 		
 -------------------------------------------------------------------
 Client->Server
-
+	닉네임 전송 1101닉네임
+	방입장 허락 1201방이름
+	일반채팅 1301채팅내용
+	방퇴장 허락 1202방이름
 	
-
-
-=============================================================
-클라이언트 -> 서버
-
-닉네임 보낸다			1101닉네임
-방입장 허락			1201방이름
-일반채팅				1301채팅내용
-방퇴장 허락			1202방이름
-
-참고	네트워크 상에서 클라이언트는 서버에게 주로 이벤트가 
-		발생하면 데이터를 전송하는 방식으로 처리하면 된다.
-
-서버 -> 클라이언트
-
-닉네임잘받았다		2101Y|N
-방입장 허락여부		2201Y|N
-방퇴장 허락여부		2202Y|N
-일반채팅				2301채팅내용
-
-참고	서버입장에서는
-		클라이언트가 데이터를 보내면 응답하는 방식으로
-		처리하면 된다.
-
-
+  +	네트워크 상에서 client는 server에게
+	주로 이벤트가 발생하면 전송하는 방식으로 처리하면 됨.
 	
+Server->Client
+	닉네임 잘받았다 2101Y|N
+	방입장 허락여부 2201Y|N
+	방퇴장 허락여부 2202Y|N
+	일반채팅 2301채팅내용
+	
+  +	server입장에선 client가 데이터를 보내면
+	응답하는 방식으로 처리하면 됨.
+
+
 	public ClientThread() throws Exception{
-		스트림만들고...
-		나머지 처리한다.
+		스트림 생성
+		나머지 처리하기
 	}
+
+	// 위의 ClientThread 클래스를 사용하는 부분에서
+	try {
+		ClientThread t=new ClientThread();
+		t.start();
+	}catch(Exception e) {}
+
+
 
 	//	위의 스레드 클래스를 사용하는 부분에서
 	try {
@@ -268,90 +266,83 @@ Client->Server
 	catch(Exception e) {
 	}
 
+-------------------------------------------------------------------
+SQL 맛보기~
+	DROP TABLE Member;
+	CREATE TABLE Member
+	(
+		m_Name VARCHAR2(50),
+		m_ID VARCHAR2(50),
+		m_Pw VARCHAR2(50)
+	);
 
-=============================================================
-
-DROP TABLE Member;
-CREATE TABLE Member
-(
-	m_Name		VARCHAR2(50),
-	m_ID			VARCHAR2(50),
-	m_Pw			VARCHAR2(50)
-);
-
-INSERT INTO Member VALUES('전은석', 'euns', '12345');
-INSERT INTO Member VALUES('제니', 'jennie', '12345');
-
+	INSERT INTO Member VALUES('최이지', 'iji', '1209');
+	INSERT INTO Member VALUES('황인준', 'rj', '0323');
+	
+-------------------------------------------------------------------
 클래스를 이용한 네트워크 통신
-==>		IO에서 클래스 전체를 스트림으로 보낼 수 있다.
-		이것을 직렬화다 라고 배웠다.
+==> IO에서 클래스 전체를 Stream으로 보낼 수 있다. (직렬화)
 
-		네트워크 역시 스트림을 이용하는 방식이므로
-		직렬화 기법을 이용해서 클래스 전체를 클라이언트와 서버사이에
-		통신할 수 있다.
+	네트워크 역시 Stream을 이용하여, 직렬화를 이용해
+	클래스 전체가 client-server간 통신이 가능하다
+	
+  ※	이 때 클래스가 가져야 할 요건
+		1. 반드시 server와 client 모두 클래스가 존재
+		2. 같은 package 이름
+		3. 같은 class 이름
+		4. 변수의 이름과 형태 동일
+		5. 순서도 동일
+	(==양 쪽에 동일한 클래스가 존재해야 한다.)
 
-	참고
-		이때 주의할 사항
-		통신에 사용될 클래스는
-		1.	반드시 서버와 클라이언트 모두 클래스를 가지고 있어야 한다.
-		2.	같은 패키지 이름을 가지고 있어야한다.
-		3.	클래스 이름도 반드시 동일해야 한다.
-		4.	변수의 이름과 형태도 동일해야 한다.
-		5.	순서도 동일해야 한다.
-			결론	양쪽에 클래스가 반드시 동일한 클래스이어야 한다.
 
 오늘 사용할 직렬화 클래스
-package	NETData;
-import		java.io.*;
-public class MainData implements Serializable {
-	public	int			protocol;
-	public	ChatData	chatD;
-	public	LoginData	loginD;
-	public	FileData	fileD;
-}
+---
+package NETData;
 
-package	NETData;
-import		java.io.*;
+import java.io.*;
+public calss MainData implements Serializable {
+	public int protocol;
+	public ChatData chatD;
+	public LoginData loginD;
+	public FileData fileD;
+}
+---
+package NETData;
+
+import java.io.*;
 public class ChatData implements Serializable {
-	public	String	msg;
+	public String msg;
 }
+---
+package NETData;
 
-package	NETData;
-import		java.io.*;
+import java.io.*;
 public class LoginData implements Serializable {
-	public	String	name;
-	public	String	id;
-	public	String	pw;
+	public String name;
+	public String id;
+	public String pw;
 }
+---
+package NETData;
 
-package	NETData;
-import		java.io.*;
+import java.io.*;
 public class FileData implements Serializable {
-	public	String	fileName;
-	public	byte[] buff;
-	public	Vector	list;
+	public String fileName;
+	public byte[] buff;
+	public Vector list;
 }
 
-프로토콜 정의
-클라이언트 -> 서버
-	로그인 요청			1101
-		==>		아이디하고 비번을 주면서....
-	채팅					1201
-		==>		대화내용을 주면서....
-	파일업로드			1301
-		==>		파일이름과 파일 내용을 주면서...
-	파일목록 요청			1302
-		==>		그냥
-	파일다운로드			1303
-		==>		다운로드할 파일 이름을 주면서....
+-------------------------------------------------------------------
+Protocol의 정의
 
-서버 -> 클라이언트
-	로그인 요청			2101
-	채팅					2201
-	파일업로드			2301
-	파일목록 요청			2302
-	파일다운로드			2303
-
-####################################################################
-
+		Client					<--> 			Server
 		
+	로그인요청 1101	id/pw		<-->		로그인 요청 2101
+	
+	채팅 1201 대화내용			<-->		채팅 2201
+	
+파일업로드 1301 파일이름, 내용	<-->	파일업로드 2301
+
+	파일목록 요청 1302			<-->	파일목록 요청 2302
+	
+	파일다운로드 1303 파일이름	<-->	파일다운로드 2303

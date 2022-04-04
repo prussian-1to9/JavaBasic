@@ -95,7 +95,7 @@ public class Student implements Comparable {
 	public String toString() {
 		return "["+ban+"반 "+no+"번 "+name
 				+"]\njava : "+java+"\nDB : "+db+"\nWEB : "+web+"\nSpring : "+spring
-				+"\n\t총점 : "+sum+"\t평균 : "+ave;
+				+"\n\t총점 : "+sum+"\t평균 : "+ave+"\n";
 	}
 	@Override
 	public int compareTo(Object o) {
