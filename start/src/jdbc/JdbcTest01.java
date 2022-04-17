@@ -27,23 +27,27 @@ package jdbc;
 import java.sql.*;
 import java.text.*;
 import java.util.Date;
+
+import jdbc.sql.EmpSQL;
+
 import java.util.*;
 public class JdbcTest01 {
 	// 작업에 필요한 변수 선언
-	public final int SEL_ALL = 0;	// final 변수 쓸땐 대문자로!!
-	public final int SEL_DNO_INFO = 1;
-	public final int SEL_JOB_INFO = 2;
+	public final int SEL_ALL = 1001;	// final 변수 쓸땐 대문자로!!
+	public final int SEL_DNO_INFO = 1002;
+	public final int SEL_JOB_INFO = 1003;
 	
 	Connection con;
 	Statement stmt;
 	PreparedStatement pstmt;
 	ResultSet rs;
+	EmpSQL eSQL;
 	
 	public JdbcTest01() {
 		try {
 			// 드라이버 로딩하기
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
+			eSQL = new EmpSQL();
 			getInput();
 		}catch(Exception e) {
 			System.out.println("- + - 서버로딩 실패 - + -");
@@ -93,7 +97,7 @@ public class JdbcTest01 {
 		// 스캐너로 문자열을 입력받고, 각 문자열들마다 입력받을 내용을 받아
 		// 실행시켜주는 함수.
 		// 메세지 출력
-		System.out.print("부서 번호로 조회 : dno\n직급으로 조회 : job\n모든 사원 정보 조회 : all\n명령 입력 : ");
+		System.out.print("부서 번호로 조회 : dno\n직급으로 조회 : job\n모든 사원 정보 조회 : all\n프로그램종료 : exit\n명령 입력 : ");
 		Scanner sc = new Scanner(System.in);
 		
 		String str = sc.nextLine();
@@ -102,15 +106,19 @@ public class JdbcTest01 {
 		switch(str) {
 		
 		case "dno":
-			getDno();
+			getDnoInfo(sc);
 			break;
 			
 		case "job":
-			
+			getJobInfo(sc);
 			break;
 			
 		case "all":
 			getAll();
+			break;
+			
+		case "exit":
+			System.out.println("프로그램을 종료합니다.");
 			break;
 		}
 		
@@ -127,7 +135,8 @@ public class JdbcTest01 {
 			con = DriverManager.getConnection(url, user, pw);
 			
 			// 질의 명령을 보내고, 결과를 받아 출력한다.
-			String sql = getSql(SEL_ALL);
+//			String sql = getSql(SEL_ALL);
+			String sql = eSQL.getSQL(SEL_ALL);
 			
 			// 명령 전달도구 준비
 			stmt = con.createStatement();
@@ -165,21 +174,28 @@ public class JdbcTest01 {
 	}
 	
 	// 해당 부서 사원 조회
-	public void getDno() {
+	public void getDnoInfo(Scanner sc) {
+		// 스캐너로 부서 번호 입력받기 - 새로 new 시키면 에러난대.
+		// 고로 매개변수로 주소만 가져오는걸 해주겠어요.
+		System.out.println("검색할 부서번호를 입력하세요. 이전단계로 가려면 -1을 입력하세요.");
+		int no = sc.nextInt();
+		
+		// -1이면 함수 즉시종료
+		if (no == -1) {
+			System.out.println("---------------------------------------------------------------------");
+			getInput();
+		}
+		
+		// 필터링을 빠져나왔다면,
 		try {
 			// 접속할 준비
 			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			con = DriverManager.getConnection(url, "scott", "tiger");
 			
-			// 스캐너로 부서 번호 입력받기
-			Scanner sc = new Scanner(System.in);
-			System.out.println("부서번호를 입력하세요.");
-			int dno = sc.nextInt();
-			
 			// 질의명령 보내기
-			String sql = getSql(SEL_DNO_INFO);
+			String sql = eSQL.getSQL(SEL_DNO_INFO);
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, dno);
+			pstmt.setInt(1, no);
 			
 			// 결과받고 출력
 			ResultSet rs = pstmt.executeQuery();
@@ -199,21 +215,117 @@ public class JdbcTest01 {
 				String sdate = form1.format(hdate) + form2.format(htime);
 				
 				int sal = rs.getInt("sal");
-				int deptno = rs.getInt("e.deptno");
+				int deptno = rs.getInt("deptno");	// 인라인 테이블에선 deptno라고 떠서 e.는 생략함.
 				String dname = rs.getString("dname");
 				String loc = rs.getString("loc");
 				
 				// 출력
-				System.out.printf("", empno);
+				System.out.printf("%5d | %10s | %10s | %24s | %6d | %2d | %10s | %10s\n", empno, ename, job, sdate, sal, deptno, dname, loc);
 			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			try {
-				
+				rs.close();
+				pstmt.close();
+				con.close();
 			}catch(Exception e) {}
 		}
+	}
+	
+	// 해당 직급 사원 조회
+	public void getJobInfo(Scanner sc) {
+		System.out.println("검색할 직급을 입력하세요. 이전단계로 가려면 quit을 입력하세요.\n(모든 직급 조회 : list)");
+		String j = sc.nextLine().toUpperCase();
+		
+		// -1이면 이전단계로 가기
+		if (j.equals("QUIT")) {
+			System.out.println("---------------------------------------------------------------------");
+			getInput();			
+		}
+		if (j.equals("LIST")) getJobList(sc);
+		
+		// 필터링 됐다면
+		try {
+			// DB 접속
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			con = DriverManager.getConnection(url, "scott", "tiger");
+			
+			// 질의명령 가져오기
+			String sql = eSQL.getSQL(SEL_JOB_INFO);
+			
+			// 명령 전달도구 준비
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, j);
+			
+			// 질의명령 보내고 결과 받기
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int empno = rs.getInt("empno");
+				String ename = rs.getString("ename");
+				String ejob = rs.getString("job");
+				
+				// 시간 추출하기~
+				Date hdate = rs.getDate("hiredate");				
+				SimpleDateFormat form1 = new SimpleDateFormat("YYYY년 MM월 dd일");
+				String sdate = form1.format(hdate);
+				
+				
+				int sal = rs.getInt("sal");
+				int grade = rs.getInt("grade");
+				String comm = rs.getString("comm");
+
+				System.out.printf("%5d | %10s | %10s | %12s | %6d | %1d | %6s\n",
+						empno, ename, ejob, sdate, sal, grade, comm);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				con.close();
+			}catch(Exception e) {}
+		}
+	}
+
+	// 사원들의 모든 직급을 조회해 출력해주는 함수
+	public void getJobList(Scanner sc) {
+		try {
+			System.out.println("모든 직급을 조회합니다.");
+			// 커넥션 준비
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			con = DriverManager.getConnection(url, "scott", "tiger");
+			
+			// 질의명령 꺼내오기
+			String sql = eSQL.getSQL(eSQL.SEL_JOBLIST);
+			
+			// 명령 전달도구 준비
+			stmt = con.createStatement();
+			
+			// 질의명령 전송, 결과 받기
+			rs = stmt.executeQuery(sql);
+			
+			// 출력
+			while (rs.next()) {
+				String job = rs.getString("job");
+				
+				System.out.print(job+" ");
+			}
+			System.out.println();
+			System.out.println("---------------------------------");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			}catch(Exception e) {}
+		}
+		getJobInfo(sc);
 	}
 	
 	public static void main (String[] args) {
