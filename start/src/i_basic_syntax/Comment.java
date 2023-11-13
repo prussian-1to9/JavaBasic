@@ -11,18 +11,15 @@ package i_basic_syntax;
 
 public class Comment {
 	// 한 줄 주석
-
-	// 진입점 함수
-	public static void main(String[] args) {
-	
-	// 한 줄 주석 작성
-	System.out.println("한 줄 주석 작성 완료");
-	// 한 줄 주석 재작성 System.out.println();
-	// 주석 안의 구문은 콘솔창에 print 되지 않는 것이 확인 가능합니다.
-	
-	/*
-		여러 줄 주석
-		이 안에서 작성되는 내용은 모두 주석으로 처리됩니다.
-	 */
+	public static void main(String[] args) { // 진입점 함수
+		// 한 줄 주석 작성
+		System.out.println("한 줄 주석 작성 완료");
+		// 한 줄 주석 재작성 System.out.println();
+		// 주석 안의 구문은 콘솔창에 print 되지 않는 것이 확인 가능합니다.
+		
+		/*
+			여러 줄 주석
+			이 안에서 작성되는 내용은 모두 주석으로 처리됩니다.
+		*/
 	}
 }
